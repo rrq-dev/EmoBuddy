@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmoBuddy Interface</title>
+    <style>
+      :root {
+        --primary: #6c63ff;
+        --secondary: #ffc107;
+        --background: #f4f4f9;
+        --card-bg: #fff;
+        --text-color: #333;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background-color: var(--background);
+        color: var(--text-color);
+      }
+
+      header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1.2rem 2rem;
+        text-align: center;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 1rem;
+      }
+
+      section {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .mood-options button {
+        font-size: 1.5rem;
+        margin: 0.3rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.8rem;
+        margin-top: 0.5rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+
+      .heatmap-display {
+        background: linear-gradient(to right, #90ee90, #ffff99, #f08080);
+        height: 20px;
+        border-radius: 10px;
+        margin-top: 1rem;
+      }
+
+      .suggestion-box {
+        background-color: var(--secondary);
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        color: #222;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>EmoBuddy - Interface Awal</h1>
+    </header>
+    <main>
+      <!-- Fitur 1: Check-in Emosi -->
+      <section>
+        <h2>1. Check-in Emosi</h2>
+        <div class="mood-options">
+          <label>Pilih mood kamu:</label><br />
+          <button>😊</button>
+          <button>😐</button>
+          <button>😡</button>
+          <button>😞</button>
+        </div>
+      </section>
+
+      <!-- Fitur 2: Heatmap Mood Tim -->
+      <section>
+        <h2>2. Heatmap Mood Tim</h2>
+        <div class="heatmap-display"></div>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #555">
+          Visualisasi distribusi mood dari seluruh anggota tim.
+        </p>
+      </section>
+
+      <!-- Fitur 3: Intervensi Adaptif -->
+      <section>
+        <h2>3. Saran Adaptif</h2>
+        <div class="suggestion-box">
+          💡 Tim kamu terlihat agak tegang, bagaimana kalau break 5 menit?
+        </div>
+      </section>
+
+      <!-- Fitur 4: Refleksi Emosional -->
+      <section>
+        <h2>4. Refleksi Emosional</h2>
+        <label for="refleksi">Tulis perasaan kamu setelah sesi ini:</label>
+        <textarea
+          id="refleksi"
+          rows="4"
+          placeholder="Contoh: Aku merasa cukup tenang, tapi sempat bingung saat diskusi..."
+        ></textarea>
+      </section>
+    </main>
+  </body>
+</html>
