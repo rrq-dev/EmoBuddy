@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmoBuddy - Visualisasi Mood Tim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6C63FF",
+              secondary: "#FFD54F",
+              light: "#f4f4f9",
+              happy: "#4CAF50",
+              neutral: "#2196F3",
+              sad: "#9C27B0",
+              frustrated: "#F44336",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-light min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+      <div class="container mx-auto px-4 py-3">
+        <nav class="flex justify-between items-center">
+          <div class="flex items-center">
+            <h1 class="text-2xl font-bold text-primary">EmoBuddy</h1>
+          </div>
+          <ul class="flex space-x-6">
+            <li>
+              <a href="checkin.html" class="text-gray-600 hover:text-primary"
+                >Check-in</a
+              >
+            </li>
+            <li>
+              <a
+                href="heatmap.html"
+                class="text-primary font-medium border-b-2 border-primary"
+                >Visualisasi</a
+              >
+            </li>
+            <li>
+              <a href="suggestion.html" class="text-gray-600 hover:text-primary"
+                >Saran</a
+              >
+            </li>
+            <li>
+              <a href="reflection.html" class="text-gray-600 hover:text-primary"
+                >Refleksi</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+      <section class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+          Visualisasi Mood Tim
+        </h2>
+
+        <div class="mb-8">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Distribusi Mood Tim Hari Ini
+          </h3>
+
+          <!-- Bar Chart -->
+          <div class="mb-8">
+            <h4 class="text-md font-medium text-gray-600 mb-2">Bar Chart</h4>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <span class="w-24 text-sm">😊 Happy</span>
+                <div class="h-8 bg-happy rounded-r-lg" id="happy-bar"></div>
+                <span class="ml-2 text-sm" id="happy-count"></span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-24 text-sm">😐 Neutral</span>
+                <div class="h-8 bg-neutral rounded-r-lg" id="neutral-bar"></div>
+                <span class="ml-2 text-sm" id="neutral-count"></span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-24 text-sm">😞 Sad</span>
+                <div class="h-8 bg-sad rounded-r-lg" id="sad-bar"></div>
+                <span class="ml-2 text-sm" id="sad-count"></span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-24 text-sm">😡 Frustrated</span>
+                <div
+                  class="h-8 bg-frustrated rounded-r-lg"
+                  id="frustrated-bar"
+                ></div>
+                <span class="ml-2 text-sm" id="frustrated-count"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pie Chart -->
+          <div>
+            <h4 class="text-md font-medium text-gray-600 mb-4">Pie Chart</h4>
+            <div class="flex justify-center">
+              <div class="relative w-64 h-64">
+                <canvas id="pie-chart" width="256" height="256"></canvas>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span
+                    class="text-lg font-medium text-gray-700"
+                    id="total-count"
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-2">
+              <div class="flex items-center">
+                <div class="w-4 h-4 bg-happy rounded-full mr-2"></div>
+                <span class="text-sm">Happy</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-4 h-4 bg-neutral rounded-full mr-2"></div>
+                <span class="text-sm">Neutral</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-4 h-4 bg-sad rounded-full mr-2"></div>
+                <span class="text-sm">Sad</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-4 h-4 bg-frustrated rounded-full mr-2"></div>
+                <span class="text-sm">Frustrated</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 p-4 bg-light rounded-lg">
+          <h3 class="text-lg font-medium text-gray-700 mb-2">Anggota Tim</h3>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            id="team-members"
+          >
+            <!-- Team members will be inserted here -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Dummy team data
+        const teamData = [
+          { id: 1, name: "Budi Santoso", mood: "happy", emoji: "😊" },
+          { id: 2, name: "Dewi Lestari", mood: "neutral", emoji: "😐" },
+          { id: 3, name: "Agus Pratama", mood: "sad", emoji: "😞" },
+          { id: 4, name: "Siti Rahayu", mood: "frustrated", emoji: "😡" },
+          { id: 5, name: "Joko Widodo", mood: "happy", emoji: "😊" },
+        ];
+
+        // Get user mood from localStorage
+        let userMood = { mood: "neutral", emoji: "😐", name: "Anda" };
+        const savedMood = localStorage.getItem("userMood");
+        if (savedMood) {
+          const moodData = JSON.parse(savedMood);
+          userMood.mood = moodData.mood;
+          userMood.emoji = moodData.emoji;
+        }
+
+        // Combine user mood with team data
+        const allMoods = [...teamData, userMood];
+
+        // Count moods
+        const moodCounts = {
+          happy: allMoods.filter((m) => m.mood === "happy").length,
+          neutral: allMoods.filter((m) => m.mood === "neutral").length,
+          sad: allMoods.filter((m) => m.mood === "sad").length,
+          frustrated: allMoods.filter((m) => m.mood === "frustrated").length,
+        };
+
+        const totalCount = Object.values(moodCounts).reduce((a, b) => a + b, 0);
+
+        // Update bar chart
+        const maxWidth = document.querySelector(".max-w-4xl").clientWidth - 150;
+
+        document.getElementById("happy-bar").style.width = `${
+          (moodCounts.happy / totalCount) * maxWidth
+        }px`;
+        document.getElementById("happy-count").textContent = `${
+          moodCounts.happy
+        } (${Math.round((moodCounts.happy / totalCount) * 100)}%)`;
+
+        document.getElementById("neutral-bar").style.width = `${
+          (moodCounts.neutral / totalCount) * maxWidth
+        }px`;
+        document.getElementById("neutral-count").textContent = `${
+          moodCounts.neutral
+        } (${Math.round((moodCounts.neutral / totalCount) * 100)}%)`;
+
+        document.getElementById("sad-bar").style.width = `${
+          (moodCounts.sad / totalCount) * maxWidth
+        }px`;
+        document.getElementById("sad-count").textContent = `${
+          moodCounts.sad
+        } (${Math.round((moodCounts.sad / totalCount) * 100)}%)`;
+
+        document.getElementById("frustrated-bar").style.width = `${
+          (moodCounts.frustrated / totalCount) * maxWidth
+        }px`;
+        document.getElementById("frustrated-count").textContent = `${
+          moodCounts.frustrated
+        } (${Math.round((moodCounts.frustrated / totalCount) * 100)}%)`;
+
+        // Update total count
+        document.getElementById(
+          "total-count"
+        ).textContent = `Total: ${totalCount}`;
+
+        // Draw pie chart
+        const canvas = document.getElementById("pie-chart");
+        const ctx = canvas.getContext("2d");
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = Math.min(centerX, centerY) - 10;
+
+        let startAngle = 0;
+        const colors = {
+          happy: "#4CAF50",
+          neutral: "#2196F3",
+          sad: "#9C27B0",
+          frustrated: "#F44336",
+        };
+
+        for (const [mood, count] of Object.entries(moodCounts)) {
+          const sliceAngle = (count / totalCount) * 2 * Math.PI;
+
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.arc(
+            centerX,
+            centerY,
+            radius,
+            startAngle,
+            startAngle + sliceAngle
+          );
+          ctx.closePath();
+
+          ctx.fillStyle = colors[mood];
+          ctx.fill();
+
+          startAngle += sliceAngle;
+        }
+
+        // Display team members
+        const teamMembersContainer = document.getElementById("team-members");
+
+        allMoods.forEach((member) => {
+          const memberCard = document.createElement("div");
+          memberCard.className =
+            "bg-white p-3 rounded-lg shadow-sm flex items-center";
+
+          memberCard.innerHTML = `
+                    <span class="text-2xl mr-3">${member.emoji}</span>
+                    <div>
+                        <p class="font-medium">${member.name}</p>
+                        <p class="text-sm text-gray-500 capitalize">${member.mood}</p>
+                    </div>
+                `;
+
+          teamMembersContainer.appendChild(memberCard);
+        });
+
+        // Save mood data to localStorage for suggestion page
+        localStorage.setItem(
+          "teamMoodData",
+          JSON.stringify({
+            moodCounts,
+            totalCount,
+          })
+        );
+      });
+    </script>
+  </body>
+</html>

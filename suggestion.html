@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmoBuddy - Saran Adaptif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6C63FF",
+              secondary: "#FFD54F",
+              light: "#f4f4f9",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-light min-h-screen">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+      <div class="container mx-auto px-4 py-3">
+        <nav class="flex justify-between items-center">
+          <div class="flex items-center">
+            <h1 class="text-2xl font-bold text-primary">EmoBuddy</h1>
+          </div>
+          <ul class="flex space-x-6">
+            <li>
+              <a href="checkin.html" class="text-gray-600 hover:text-primary"
+                >Check-in</a
+              >
+            </li>
+            <li>
+              <a href="heatmap.html" class="text-gray-600 hover:text-primary"
+                >Visualisasi</a
+              >
+            </li>
+            <li>
+              <a
+                href="suggestion.html"
+                class="text-primary font-medium border-b-2 border-primary"
+                >Saran</a
+              >
+            </li>
+            <li>
+              <a href="reflection.html" class="text-gray-600 hover:text-primary"
+                >Refleksi</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+      <section class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Saran Adaptif</h2>
+
+        <div id="mood-summary" class="mb-8 p-5 bg-light rounded-lg">
+          <h3 class="text-lg font-medium text-gray-700 mb-3">
+            Ringkasan Mood Tim
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="bg-white p-3 rounded-lg shadow-sm">
+              <span class="text-2xl">😊</span>
+              <p class="text-sm mt-1">Happy</p>
+              <p id="happy-percent" class="font-medium"></p>
+            </div>
+            <div class="bg-white p-3 rounded-lg shadow-sm">
+              <span class="text-2xl">😐</span>
+              <p class="text-sm mt-1">Neutral</p>
+              <p id="neutral-percent" class="font-medium"></p>
+            </div>
+            <div class="bg-white p-3 rounded-lg shadow-sm">
+              <span class="text-2xl">😞</span>
+              <p class="text-sm mt-1">Sad</p>
+              <p id="sad-percent" class="font-medium"></p>
+            </div>
+            <div class="bg-white p-3 rounded-lg shadow-sm">
+              <span class="text-2xl">😡</span>
+              <p class="text-sm mt-1">Frustrated</p>
+              <p id="frustrated-percent" class="font-medium"></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="suggestion-card" class="p-5 rounded-lg mb-8">
+          <!-- Suggestion will be inserted here -->
+        </div>
+
+        <div class="mt-8">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Tips Kolaborasi Berdasarkan Mood
+          </h3>
+
+          <div class="space-y-4">
+            <div class="p-4 bg-green-50 rounded-lg">
+              <h4 class="font-medium flex items-center">
+                <span class="text-xl mr-2">😊</span> Saat Tim Bahagia
+              </h4>
+              <ul class="mt-2 ml-6 list-disc text-sm text-gray-700">
+                <li>
+                  Manfaatkan energi positif untuk menyelesaikan tugas yang
+                  menantang
+                </li>
+                <li>Dorong brainstorming dan ide-ide kreatif</li>
+                <li>Berikan apresiasi atas kontribusi setiap anggota tim</li>
+              </ul>
+            </div>
+
+            <div class="p-4 bg-blue-50 rounded-lg">
+              <h4 class="font-medium flex items-center">
+                <span class="text-xl mr-2">😐</span> Saat Tim Netral
+              </h4>
+              <ul class="mt-2 ml-6 list-disc text-sm text-gray-700">
+                <li>Fokus pada tugas yang membutuhkan konsentrasi tinggi</li>
+                <li>
+                  Lakukan check-in singkat untuk memastikan semua orang terlibat
+                </li>
+                <li>
+                  Berikan variasi dalam aktivitas untuk meningkatkan energi
+                </li>
+              </ul>
+            </div>
+
+            <div class="p-4 bg-purple-50 rounded-lg">
+              <h4 class="font-medium flex items-center">
+                <span class="text-xl mr-2">😞</span> Saat Tim Sedih
+              </h4>
+              <ul class="mt-2 ml-6 list-disc text-sm text-gray-700">
+                <li>Beri ruang untuk mengekspresikan perasaan</li>
+                <li>Fokus pada tugas yang lebih ringan dan terstruktur</li>
+                <li>Tunjukkan empati dan dukungan</li>
+              </ul>
+            </div>
+
+            <div class="p-4 bg-red-50 rounded-lg">
+              <h4 class="font-medium flex items-center">
+                <span class="text-xl mr-2">😡</span> Saat Tim Frustrasi
+              </h4>
+              <ul class="mt-2 ml-6 list-disc text-sm text-gray-700">
+                <li>Ambil jeda singkat untuk menenangkan pikiran</li>
+                <li>Pecah masalah besar menjadi langkah-langkah kecil</li>
+                <li>
+                  Lakukan aktivitas yang menyenangkan untuk mengurangi
+                  ketegangan
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get mood data from localStorage
+        let moodData = {
+          moodCounts: {
+            happy: 2,
+            neutral: 2,
+            sad: 1,
+            frustrated: 1,
+          },
+          totalCount: 6,
+        };
+
+        const savedMoodData = localStorage.getItem("teamMoodData");
+        if (savedMoodData) {
+          moodData = JSON.parse(savedMoodData);
+        }
+
+        // Calculate percentages
+        const happyPercent = Math.round(
+          (moodData.moodCounts.happy / moodData.totalCount) * 100
+        );
+        const neutralPercent = Math.round(
+          (moodData.moodCounts.neutral / moodData.totalCount) * 100
+        );
+        const sadPercent = Math.round(
+          (moodData.moodCounts.sad / moodData.totalCount) * 100
+        );
+        const frustratedPercent = Math.round(
+          (moodData.moodCounts.frustrated / moodData.totalCount) * 100
+        );
+
+        // Update percentage displays
+        document.getElementById(
+          "happy-percent"
+        ).textContent = `${happyPercent}%`;
+        document.getElementById(
+          "neutral-percent"
+        ).textContent = `${neutralPercent}%`;
+        document.getElementById("sad-percent").textContent = `${sadPercent}%`;
+        document.getElementById(
+          "frustrated-percent"
+        ).textContent = `${frustratedPercent}%`;
+
+        // Check if negative moods are dominant
+        const negativePercent = sadPercent + frustratedPercent;
+        const suggestionCard = document.getElementById("suggestion-card");
+
+        if (negativePercent > 50) {
+          suggestionCard.classList.add("bg-red-50", "border", "border-red-100");
+          suggestionCard.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="text-3xl mr-4">💡</div>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800">Tim sedang tegang, istirahat sebentar yuk!</h3>
+                            <p class="mt-2 text-gray-600">Lebih dari 50% anggota tim sedang mengalami mood negatif. Beberapa saran:</p>
+                            <ul class="mt-2 ml-5 list-disc text-gray-600">
+                                <li>Ambil jeda 10-15 menit untuk menenangkan pikiran</li>
+                                <li>Lakukan aktivitas ringan bersama seperti ice breaking</li>
+                                <li>Diskusikan kendala yang dihadapi dengan tenang</li>
+                                <li>Prioritaskan ulang tugas jika diperlukan</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+        } else {
+          suggestionCard.classList.add(
+            "bg-green-50",
+            "border",
+            "border-green-100"
+          );
+          suggestionCard.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="text-3xl mr-4">✨</div>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-800">Suasana kondusif! Pertahankan ya!</h3>
+                            <p class="mt-2 text-gray-600">Mayoritas anggota tim dalam mood positif. Beberapa saran:</p>
+                            <ul class="mt-2 ml-5 list-disc text-gray-600">
+                                <li>Manfaatkan momentum positif untuk menyelesaikan tugas penting</li>
+                                <li>Lakukan brainstorming untuk ide-ide baru</li>
+                                <li>Berikan apresiasi kepada anggota tim</li>
+                                <li>Tetap perhatikan anggota tim yang mungkin sedang tidak dalam mood terbaik</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+        }
+      });
+    </script>
+  </body>
+</html>
